@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+    rabbitmq:
+        image: rabbitmq:3.6
+        env_file: .env
+
+    php:
+        build: ./build/php/5.6/
+        volumes:
+            - ./:/code/
+        working_dir: /code/
+        depends_on:
+            - rabbitmq
+
+    composer:
+        image: composer:1.4
+        volumes:
+            - ./:/code/
+        working_dir: /code/
